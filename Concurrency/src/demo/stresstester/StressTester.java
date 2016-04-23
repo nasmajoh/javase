@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class StressTester {
+
 	public static void main(String[] args) throws InterruptedException {
 
 		// Server server = new Server();
@@ -20,24 +21,21 @@ public class StressTester {
 		ExecutorService es = Executors.newFixedThreadPool(nThreads);
 		final CyclicBarrier barrier = new CyclicBarrier(nThreads);
 		for (int i = 0; i < nThreads; i++) {
-			es.submit(new Runnable() {
-				public void run() {
-					try {
-						barrier.await();
-						for (int i = 0; i < 100000; i++) {
-							for (String hetu : hetuList) {
-								try {
-									System.out.println("Do something with hetu " + hetu);
-								} catch (RuntimeException re) {
-									re.printStackTrace();
-									System.exit(-1);
-								}
+			es.submit(() -> {
+				try {
+					barrier.await();
+					for (int i1 = 0; i1 < 100000; i1++) {
+						hetuList.stream().forEach((String hetu) -> {
+							try {
+								System.out.println("Do something with hetu " + hetu);
+							} catch (RuntimeException re) {
+								re.printStackTrace();
+								System.exit(-1);
 							}
-						}
-					} catch (InterruptedException | BrokenBarrierException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						});
 					}
+				} catch (InterruptedException | BrokenBarrierException e) {
+					e.printStackTrace();
 				}
 			});
 		}
