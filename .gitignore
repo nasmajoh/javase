@@ -14,5 +14,8 @@ hs_err_pid*
 # ignored workspace folders and files
 .metadata/
 .recommenders/
+.settings/
 RemoteSystemsTempFiles/
 /target/
+.classpath
+.project
