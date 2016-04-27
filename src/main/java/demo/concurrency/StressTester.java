@@ -1,4 +1,4 @@
-package demo.stresstester;
+package demo.concurrency;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,9 +25,9 @@ public class StressTester {
 				try {
 					barrier.await();
 					for (int i1 = 0; i1 < 100000; i1++) {
-						hetuList.stream().forEach((String hetu) -> {
+						hetuList.stream().forEach((String henkilotunnus) -> {
 							try {
-								System.out.println("Do something with hetu " + hetu);
+								System.out.println("Do something with henkilotunnus " + henkilotunnus);
 							} catch (RuntimeException re) {
 								re.printStackTrace();
 								System.exit(-1);
